@@ -1,0 +1,18 @@
+* {
+    overflow-x: hidden;
+}
+
+.a {
+    text-decoration: none;
+}
+
+.page-title {
+    font-family: sans-serif, cursive;
+    font-size: 30px;
+}
+
+.register-title, .login-title {
+    font-size: 35px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}

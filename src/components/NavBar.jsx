@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 const navBar = () => {
     return (
-        <>
+        <Fragment>
         <header>
             <nav 
                 className='navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse justify-content-between bg-dark'
@@ -12,7 +12,7 @@ const navBar = () => {
                 </a>    
             </nav>  
         </header>
-        </>
+        </Fragment>
     )
 }
 
