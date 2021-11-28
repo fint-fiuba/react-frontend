@@ -16,3 +16,11 @@
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
 }
+
+.mar-r-40 {
+    margin-right: 40px;
+}
+
+.mar-l-30 {
+    margin-left: 30px;
+}

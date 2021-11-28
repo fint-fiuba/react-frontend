@@ -5,13 +5,13 @@ const Login = () => {
     const [pass, setPass] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
 
-    const updateState = (value, func) => {
-        console.log(value)
+    const updateState = (value: string, func: (a: string) => void) => {
         func(value)
     }
 
     const loginUser = () => {
         if (!email.trim() || !pass.trim()) return setErrorMsg('Campo Obligatorio')
+        // Redirigir.
     }
 
     return (
@@ -24,7 +24,7 @@ const Login = () => {
                         type='email' 
                         className='form-control w-100 mt-5'
                         placeholder='ejemplo@email.com'
-                        onChange={(e) => updateState(e, setEmail)}
+                        onChange={(e) => updateState(e.target.value, setEmail)}
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !email.trim() ?
@@ -38,7 +38,7 @@ const Login = () => {
                         type='password' 
                         className='form-control mt-4 w-100 mb-4'
                         placeholder='Contraseña'
-                        onChange={(e) => updateState(e, setPass)}
+                        onChange={(e) => updateState(e.target.value, setPass)}
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !pass.trim() ?

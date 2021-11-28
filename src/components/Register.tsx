@@ -13,11 +13,11 @@ const Login = () => {
     const [file, setFile] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
 
-    const updateState = (e, func) => {
-        func(e.target.value)
+    const updateState = (value: string, func: (a: string) => void) => {
+        func(value)
     }
 
-    const registerUser = (e) => {
+    const registerUser = () => {
         if (!userFirstName ||
             !userLastName || 
             !email || 
@@ -36,12 +36,12 @@ const Login = () => {
             <div className='col'></div>
             <div className='col'>
                 <h1 className='text-center register-title'>Registrarse en Animal Tinder</h1>
-                <form className='form-group' form='register'>
+                <form className='form-group'>
                     <input 
                         type='text' 
                         className='form-control w-100 mt-5'
                         placeholder='Nombre'
-                        onChange={(e) => updateState(e, setUserFirstName)}
+                        onChange={(e) => updateState(e.target.value, setUserFirstName)}
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !userFirstName.trim() ?
@@ -55,7 +55,7 @@ const Login = () => {
                         type='text' 
                         className='form-control w-100 mt-4'
                         placeholder='Apellido'
-                        onChange={(e) => updateState(e, setUserLastName)}
+                        onChange={(e) => updateState(e.target.value, setUserLastName)}
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !userLastName.trim() ?
@@ -69,7 +69,7 @@ const Login = () => {
                         type='email' 
                         className='form-control w-100 mt-4'
                         placeholder='ejemplo@email.com'
-                        onChange={(e) => updateState(e, setEmail)}
+                        onChange={(e) => updateState(e.target.value, setEmail)}
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !email.trim() ?
@@ -83,7 +83,7 @@ const Login = () => {
                         type='password' 
                         className='form-control mt-4 w-100'
                         placeholder='Contraseña'
-                        onChange={(e) => updateState(e, setPass)}
+                        onChange={(e) => updateState(e.target.value, setPass)}
                         />
                     {
                         errorMsg && !(pass.length >= 6) ?
@@ -97,7 +97,7 @@ const Login = () => {
                         type='text' 
                         className='form-control w-100 mt-4'
                         placeholder='Nombre de Mascota'
-                        onChange={(e) => updateState(e, setPetName)}
+                        onChange={(e) => updateState(e.target.value, setPetName)}
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !petName.trim() ?
@@ -110,7 +110,7 @@ const Login = () => {
                     <select
                         form='register'
                         className='form-select mt-4 w-100'    
-                        onChange={(e) => updateState(e, setAnimalType)}
+                        onChange={(e) => updateState(e.target.value, setAnimalType)}
                     >
                         <option value='Perro'>Perro</option>
                         <option value='Gato'>Gato</option>
@@ -118,7 +118,7 @@ const Login = () => {
                     <select 
                         form='register'
                         className='form-select mt-4 w-100'
-                        onChange={(e) => updateState(e, setPetGender)}
+                        onChange={(e) => updateState(e.target.value, setPetGender)}
                     >
                         <option value='Macho'>Macho</option>
                         <option value='Hembra'>Hembra</option>
@@ -126,7 +126,7 @@ const Login = () => {
                     <input 
                         type='file'
                         className='form-control mt-4 w-100'
-                        onChange={(e) => updateState(e, setFile)}
+                        onChange={(e) => updateState(e.target.value, setFile)}
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !file ?
