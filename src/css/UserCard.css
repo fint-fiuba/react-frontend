@@ -1,0 +1,14 @@
+.user_card{
+    align-items: center;
+}
+
+.user_card_title{
+    text-align: center;
+    margin-bottom: 50px;
+    overflow: hidden;
+    font-size: 30px;
+}
+
+.boton_submit{
+    align-content: center;
+}
