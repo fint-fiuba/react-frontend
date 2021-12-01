@@ -10,7 +10,7 @@ const NavBar = () => {
                 <Link to="/user" className="navbar-brand header_a">
                     <i className="bi bi-person-fill header_icon"></i>   
                 </Link>
-                <Link to="/match2" className="navbar-brand header_a">
+                <Link to="/match" className="navbar-brand header_a">
                     <i className="bi bi-house-fill header_icon"></i>
                 </Link>
                 <Link to="/matches" className="navbar-brand header_a">
