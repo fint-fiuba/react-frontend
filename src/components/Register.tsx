@@ -8,6 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
     const [petName, setPetName] = useState('')
+    const [petAge, setPetAge] = useState('')
     const [animalType, setAnimalType] = useState('')
     const [petGender, setPetGender] = useState('')
     const [file, setFile] = useState('')
@@ -24,6 +25,7 @@ const Login = () => {
             !petName ||
             !animalType ||
             !petGender ||
+            !petAge ||
             !file            
             ) return setErrorMsg('Campo Obligatorio')
             
@@ -101,6 +103,20 @@ const Login = () => {
                         />
                     {
                         errorMsg === 'Campo Obligatorio' && !petName.trim() ?
+                        <p className='text-danger mt-3'>
+                            {errorMsg}
+                        </p>
+                        :
+                        <span></span>
+                    }
+                    <input 
+                        type='number' 
+                        className='form-control w-100 mt-4'
+                        placeholder='Edad de Mascota'
+                        onChange={(e) => updateState(e.target.value, setPetAge)}
+                        />
+                    {
+                        errorMsg === 'Campo Obligatorio' && !petAge.trim() ?
                         <p className='text-danger mt-3'>
                             {errorMsg}
                         </p>

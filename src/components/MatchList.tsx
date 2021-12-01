@@ -2,6 +2,7 @@ import React, { useState, useRef, useMemo } from "react";
 import { MatchButtons } from "./MatchButtons";
 import animales from "../data/getAnimals.jsx";
 import MatchCard from "./MatchCard";
+import NavBar from "./NavBar";
 import "../css/MatchList.css";
 
 const MatchList = () => {
@@ -41,6 +42,7 @@ const MatchList = () => {
 
   return (
     <>
+      <NavBar></NavBar>
       <div className="match_cards">
         {animales.map((animal, index: number) => (
           <MatchCard
