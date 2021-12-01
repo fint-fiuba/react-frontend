@@ -9,10 +9,12 @@ import Register from './components/Register';
 import Match from './components/Match';
 import MatchList from './components/MatchList';
 import UserInformation from './components/UserInformation';
+import NavBar2 from './components/NavBar2';
 
 function App() {
   return (
     <Router>
+      <NavBar2 />
       <Routes>
         <Route path='/' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>

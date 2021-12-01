@@ -1,8 +1,7 @@
 import React, { useState, useRef, useMemo } from "react";
 import { MatchButtons } from "./MatchButtons";
-import animales from "../data/animales.jsx";
+import animales from "../data/getAnimals.jsx";
 import MatchCard from "./MatchCard";
-import NavBar2 from "./NavBar2";
 import "../css/MatchList.css";
 
 const MatchList = () => {
@@ -42,8 +41,6 @@ const MatchList = () => {
 
   return (
     <>
-      <NavBar2 />
-
       <div className="match_cards">
         {animales.map((animal, index: number) => (
           <MatchCard

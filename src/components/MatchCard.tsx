@@ -23,10 +23,10 @@ const MatchCard = ({ name, image , index, swiped , outOfFrame, childRefs}: CardP
             onCardLeftScreen={() => outOfFrame(index)}
         >
         <div 
-            className="tinder_card" 
+            className="tinder_card " 
             style={{ backgroundImage: `url(${image})` }}
         >
-            <h2 className="tinder_card_name">
+            <h2 className="tinder_card_name ">
                 {name}
             </h2>
         </div>

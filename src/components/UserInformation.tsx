@@ -1,34 +1,15 @@
-import React , {useState, useEffect} from 'react';
+import React from 'react';
 
-import NavBar2 from './NavBar2';
-import UserCard from './UserCard';
-import userData from "../data/getUser";
+import UserCard2 from './UserCard';
+import "../css/UserInformation.css";
 
 
 const UserInformation = () => {
 
-    const [user, setuser] = useState({
-        userFirstName : '',
-        userLastName : '',
-        email : '',
-        petName : '',
-        animalType : '',
-        petGender : '',
-        file : ''
-    });
-
-    useEffect(() => {
-        setuser(userData);
-    }, [])
-
-
     return (
-        <>
-            <NavBar2 />
             <section className="section">
-                <UserCard {...user} />
+                <UserCard2 />
             </section>
-        </>
     )
 }
 

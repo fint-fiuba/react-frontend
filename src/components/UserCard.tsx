@@ -1,138 +1,226 @@
-import React from "react";
+import React, {
+  useState,
+  useEffect,
+  ChangeEvent
+} from "react";
 import "../css/UserCard.css";
+import userData from "../data/getUser";
 
-type UserProps = {
-  userFirstName: string;
-  userLastName: string;
-  email: string;
-  petName: string;
-  animalType: string;
-  petGender: string;
-  file: string;
-};
+const UserCard = () => {
+  const [inputsEstados, setInputsEstados] = useState(true);
 
-const UserCard = ({
-  userFirstName,
-  userLastName,
-  email,
-  petName,
-  petGender,
-  file,
-}: UserProps) => {
+  const [user, setuser] = useState({
+    userFirstName: "",
+    userLastName: "",
+    email: "",
+    petName: "",
+    animalType: "",
+    petGender: "",
+    file: "",
+  });
+
+  const {
+    userFirstName,
+    userLastName,
+    email,
+    petName,
+    petGender,
+    animalType,
+  } = user;
+
+  useEffect(() => {
+    setuser(userData);
+    console.log("Falta : \n Traer campos de backend ");
+  }, []);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setuser({
+      ...user,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleCancel = () => {
+    setInputsEstados(true);
+    setuser(userData);
+  };
+
+  const handleEdit = () => {
+    setInputsEstados(false);
+    console.log("Falta : \n Validar campos con stings etc ");
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Falta: \n -> Guardarlo usando endpoint");
+  };
+
   return (
-    <div className="card user_card">
-      <div className="card-body">
-        <h5 className="user_card_title">Usuario</h5>
-        <form noValidate>
-          <div className="form-group row">
-            <label
-              htmlFor="userFirstName"
-              className="col-sm-6 col-form-label font-weight-bold"
-            >
-              First Name
-            </label>
-            <div className="col-sm-6">
-              <input
-                type="text"
-                readOnly
-                className="form-control-plaintext"
-                id="userFirstName"
-                value={userFirstName}
-              />
+    <>
+      <div className="card user_card shadow-lg p-3 mb-5 bg-white">
+        <div className="card-body user_card_body">
+          <h5 className="user_card_title">User</h5>
+          <form
+            className="needs-validation user_card_form"
+            noValidate
+            onSubmit={handleSubmit}
+          >
+            <div className="form-group row mb-2">
+              <label
+                htmlFor="userFirstName"
+                className="col-sm-4 col-form-label"
+              >
+                First Name
+              </label>
+              <div className="col-sm-8 user_card_input">
+                <input
+                  type="text"
+                  disabled={inputsEstados}
+                  className="form-control required"
+                  id="userFirstName"
+                  name="userFirstName"
+                  value={userFirstName}
+                  onChange={handleInputChange}
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="form-group row">
-            <label
-              htmlFor="userLastName"
-              className="col-sm-6 col-form-label font-weight-bold"
-            >
-              Last Name
-            </label>
-            <div className="col-sm-6">
-              <input
-                type="text"
-                readOnly
-                className="form-control-plaintext"
-                id="userLastName"
-                value={userLastName}
-              />
+            <div className="form-group row mb-2">
+              <label htmlFor="userLastName" className="col-sm-4 col-form-label">
+                Last Name
+              </label>
+              <div className="col-sm-8">
+                <input
+                  type="text"
+                  disabled={inputsEstados}
+                  className="form-control required"
+                  id="userLastName"
+                  name="userLastName"
+                  value={userLastName}
+                  onChange={handleInputChange}
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="form-group row">
-            <label
-              htmlFor="email"
-              className="col-sm-6 col-form-label font-weight-bold"
-            >
-              Email
-            </label>
-            <div className="col-sm-6">
-              <input
-                type="text"
-                readOnly
-                className="form-control-plaintext"
-                id="email"
-                value={email}
-              />
+            <div className="form-group row mb-2">
+              <label htmlFor="email" className="col-sm-4 col-form-label">
+                Email
+              </label>
+              <div className="col-sm-8">
+                <input
+                  type="text"
+                  disabled={inputsEstados}
+                  className="form-control required"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={handleInputChange}
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="form-group row">
-            <label
-              htmlFor="petName"
-              className="col-sm-6 col-form-label font-weight-bold"
-            >
-              Pet Name
-            </label>
-            <div className="col-sm-6">
-              <input
-                type="text"
-                readOnly
-                className="form-control-plaintext"
-                id="petName"
-                value={petName}
-              />
+            <div className="form-group row mb-2">
+              <label htmlFor="petName" className="col-sm-4 col-form-label">
+                Pet Name
+              </label>
+              <div className="col-sm-8">
+                <input
+                  type="text"
+                  disabled={inputsEstados}
+                  className="form-control required"
+                  id="petName"
+                  name="petName"
+                  value={petName}
+                  onChange={handleInputChange}
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="form-group row">
-            <label
-              htmlFor="petGender"
-              className="col-sm-6 col-form-label font-weight-bold"
-            >
-              Pet Gender
-            </label>
-            <div className="col-sm-6">
-              <input
-                type="text"
-                readOnly
-                className="form-control-plaintext"
-                id="petGender"
-                value={petGender}
-              />
+            <div className="form-group row mb-2">
+              <label htmlFor="animalType" className="col-sm-4 col-form-label">
+                Pet Gender
+              </label>
+              <div className="col-sm-8">
+                <input
+                  type="text"
+                  disabled={inputsEstados}
+                  className="form-control required"
+                  id="animalType"
+                  name="animalType"
+                  value={animalType}
+                  onChange={handleInputChange}
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="form-group row">
-            <label
-              htmlFor="formFile"
-              className="col-sm-6 col-form-label font-weight-bold"
-            >
-              Imagen
-            </label>
-            <div className="col-sm-6">
-              <input className="form-control" type="file" id="formFile" />
+            <div className="form-group row mb-2">
+              <label htmlFor="petGender" className="col-sm-4 col-form-label">
+                Pet Type
+              </label>
+              <div className="col-sm-8">
+                <input
+                  type="text"
+                  disabled={inputsEstados}
+                  className="form-control required"
+                  id="petGender"
+                  name="petGender"
+                  value={petGender}
+                  onChange={handleInputChange}
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
-        </form>
-        <div className="d-flex justify-content-end pt-5">
-          <a href="/user" className="btn btn-primary ">
-            Editar
-          </a>
+
+            <div className="form-group row mb-2">
+              <label htmlFor="formFile" className="col-sm-4 col-form-label">
+                Image
+              </label>
+              <div className="col-sm-8">
+                <input
+                  disabled={inputsEstados}
+                  className="form-control required"
+                  type="file"
+                  id="formFile"
+                  name="formFile"
+                />
+              </div>
+            </div>
+            <div className="d-flex justify-content-end pt-5 user_card_buttons">
+              {inputsEstados ? (
+                <button
+                  type="button"
+                  className="btn btn-primary "
+                  onClick={handleEdit}
+                >
+                  Editar
+                </button>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-danger user_card_btn_cancel"
+                    onClick={handleCancel}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-success user_card_btn_save"
+                  >
+                    Guardar
+                  </button>
+                </>
+              )}
+            </div>
+          </form>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
