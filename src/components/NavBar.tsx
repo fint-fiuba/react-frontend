@@ -1,19 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react'
+import { Link } from 'react-router-dom';
+
+import "../css/NavBar.css";
 
 const NavBar = () => {
     return (
-        <Fragment>
         <header>
-            <nav 
-                className='navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse justify-content-between bg-dark'
-            >
-                <a href='/' className='navbar-brand text-light page-title mar-l-30'>
-                    Animal Tinder
-                </a>  
-                <button className='btn btn-danger mar-r-40'>Cerrar Sesión</button>  
-            </nav>  
+            <nav className="navbar navbar-light bg-light nav_ap">
+                <Link to="/user" className="navbar-brand header_a">
+                    <i className="bi bi-person-fill header_icon"></i>   
+                </Link>
+                <Link to="/match2" className="navbar-brand header_a">
+                    <i className="bi bi-house-fill header_icon"></i>
+                </Link>
+                <Link to="/matches" className="navbar-brand header_a">
+                    <i className="bi bi-calendar2-check-fill header_icon"></i>
+                </Link>
+            </nav>
         </header>
-        </Fragment>
     )
 }
 
