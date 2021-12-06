@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
+    const navigate = useNavigate()
 
     const updateState = (value: string, func: (a: string) => void) => {
         func(value)
@@ -11,7 +13,7 @@ const Login = () => {
 
     const loginUser = () => {
         if (!email.trim() || !pass.trim()) return setErrorMsg('Campo Obligatorio')
-        // Redirigir.
+        navigate('/match')
     }
 
     return (
