@@ -7,7 +7,6 @@ html, body {
 }
 
 .pet-photo-container {
-    height: 100%;
     display: flex;
     flex-direction: column;    
     align-items: center;
@@ -15,8 +14,6 @@ html, body {
 }
 
 .pet-photo {
-    width: 70%;
-    height: 70%;
     border-radius: 50%;
 }
 
@@ -31,4 +28,36 @@ html, body {
     height: 35px;
     margin-bottom: 10px;
     overflow: hidden;
+}
+
+.matches_card{
+    align-items: center;
+    border-radius: 2.0rem !important;
+    height: 67vh;
+   
+}
+
+.match_pet_card{
+    margin: 10px;
+    border-radius: 1rem !important;
+}
+
+.match_pet_img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.container-flex{
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: flex-start !important;
+    justify-content: center !important;
+}
+
+.match_card_text{
+    max-height: fit-content;
+}
+
+.pet_title{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
