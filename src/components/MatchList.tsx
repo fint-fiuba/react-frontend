@@ -1,19 +1,31 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import { MatchButtons } from "./MatchButtons";
-import animales from "../data/getAnimals.jsx";
 import MatchCard from "./MatchCard";
 import NavBar from "./NavBar";
 import "../css/MatchList.css";
+import { getAnimales } from "../interfaces/animales";
 
 const MatchList = () => {
 
-  const [currentIndex, setCurrentIndex] = useState(animales.length - 1);
+  const [matches, setMatches] = useState<getAnimales>({
+    message: [],
+  });
+  
+  const [currentIndex, setCurrentIndex] = useState(6 - 1);
+  
+
+  useEffect(() => {
+    fetch("http://localhost:6060/animales")
+      .then((res) => res.json())
+      .then(setMatches);
+  }, []);
+
 
   const currentIndexRef = useRef(currentIndex);
 
   const childRefs: Array<any> = useMemo(
     () =>
-      Array(animales.length)
+      Array(6)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -26,8 +38,14 @@ const MatchList = () => {
 
   const canSwipe = currentIndex >= 0;
 
-  const swiped = (idx: number) => {
+  const swiped = (dir: string, idx: number) => {
     updateCurrentIndex(idx - 1);
+    if(dir === "left"){
+      console.log("se fue rechazado")
+    }
+    if(dir === "right"){
+      console.log("se fue aceptado")
+    }
   };
 
   const outOfFrame = (idx: number) => {
@@ -35,23 +53,25 @@ const MatchList = () => {
   };
 
   const swipe = async (dir: string) => {
-    if (canSwipe && currentIndex < animales.length) {
+    if (canSwipe && currentIndex < 6) {
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
+
+
 
   return (
     <>
       <NavBar></NavBar>
       <div className="match_cards">
-        {animales.map((animal, index: number) => (
+        {matches.message.map((animal, index: number) => (
           <MatchCard
             key={animal.name}
-            name={animal.name}
-            image={animal.image}
+            animal={animal}
             index={index}
-            swiped={swiped}
-            outOfFrame={outOfFrame}
+            functions={
+              [swiped,outOfFrame]
+            }
             childRefs={childRefs}
           />
         ))}

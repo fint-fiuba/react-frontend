@@ -1,10 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  ChangeEvent
-} from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import "../css/UserCard.css";
 import userData from "../data/getUser";
+import NavBar from "./NavBar";
 
 const UserCard = () => {
   const [inputsEstados, setInputsEstados] = useState(true);
@@ -17,6 +14,7 @@ const UserCard = () => {
     animalType: "",
     petGender: "",
     file: "",
+    petAge: 0,
   });
 
   const {
@@ -26,6 +24,8 @@ const UserCard = () => {
     petName,
     petGender,
     animalType,
+    petAge,
+    file,
   } = user;
 
   useEffect(() => {
@@ -177,19 +177,49 @@ const UserCard = () => {
             </div>
 
             <div className="form-group row mb-2">
-              <label htmlFor="formFile" className="col-sm-4 col-form-label">
-                Image
+              <label htmlFor="petAge" className="col-sm-4 col-form-label">
+                Edad Mascota
               </label>
               <div className="col-sm-8">
                 <input
+                  type="number"
                   disabled={inputsEstados}
                   className="form-control required"
-                  type="file"
-                  id="formFile"
-                  name="formFile"
+                  id="petAge"
+                  name="petAge"
+                  value={petAge}
+                  onChange={handleInputChange}
+                  required={true}
                 />
               </div>
             </div>
+
+            {!inputsEstados && (
+              <>
+                <div className="form-group row mb-2">
+                  <label htmlFor="formFile" className="col-sm-4 col-form-label">
+                    Image
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      disabled={inputsEstados}
+                      className="form-control required"
+                      type="file"
+                      id="formFile"
+                      name="formFile"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group row ">
+                  <label
+                    htmlFor="petImage"
+                    className="col-sm-4 col-form-label"
+                  ></label>
+                  <img alt="petImage" src={file} className="pet_image" />
+                </div>
+              </>
+            )}
             <div className="d-flex justify-content-end pt-5 user_card_buttons">
               {inputsEstados ? (
                 <button

@@ -1,7 +1,6 @@
 .user_card{
     align-items: center;
     border-radius: 2.0rem !important;
-    height: 67vh;
 }
 
 .user_card_title{
@@ -38,5 +37,8 @@
     padding: 4px;
 }
 
+.pet_image{
+    width: 60% !important;
+}
 
   

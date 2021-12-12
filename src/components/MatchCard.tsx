@@ -2,32 +2,35 @@ import React from 'react';
 import TinderCard from 'react-tinder-card';
 
 import "../css/MatchCard.css";
+import { Animal } from '../interfaces/animales';
 
 type CardProps = {
-    name: string,
-    image: string,
-    swiped: Function,
-    outOfFrame: Function,
+    animal: Animal,
+    functions: Function[],
     index: number,
     childRefs: Array<any>
 }
 
-const MatchCard = ({ name, image , index, swiped , outOfFrame, childRefs}: CardProps) => {
+const MatchCard = ({ animal , functions, index, childRefs}: CardProps) => {
+
+    const [swiped, outOfFrame] = functions;
+
 
     return (
         <TinderCard
             ref={childRefs[index]}
             className='swipe'
-            key={name}
-            onSwipe={() => swiped(index)}
+            key={animal.name}
+            onSwipe={(dir) => swiped(dir, index)}
             onCardLeftScreen={() => outOfFrame(index)}
+            preventSwipe={['up', 'down']}
         >
         <div 
             className="tinder_card " 
-            style={{ backgroundImage: `url(${image})` }}
+            style={{ backgroundImage: `url(${animal.image})` }}
         >
             <h2 className="tinder_card_name ">
-                {name}
+                {animal.name}
             </h2>
         </div>
         </TinderCard>
