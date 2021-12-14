@@ -8,17 +8,17 @@ type CardProps = {
     animal: Animal,
     functions: Function[],
     index: number,
-    childRefs: Array<any>
+    currRef: Any
 }
 
-const MatchCard = ({ animal , functions, index, childRefs}: CardProps) => {
+const MatchCard = ({ animal , functions, index, currRef}: CardProps) => {
 
     const [swiped, outOfFrame] = functions;
 
 
     return (
         <TinderCard
-            ref={childRefs[index]}
+            ref={currRef}
             className='swipe'
             key={animal.name}
             onSwipe={(dir) => swiped(dir, index)}
