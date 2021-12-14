@@ -80,7 +80,25 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     !petAge ||
     !image
     ) return setErrorMsg('Campo Obligatorio')
-  console.log('Falta: \n -> Guardarlo usando endpoint');
+  
+    try {
+      const cookie = new Cookies();
+      axios({
+        method: 'post',
+        data: {
+          ...userCopy,
+          mail: cookie.get('mail')
+        },
+        url: 'http://localhost:3001/user/update',
+        headers: { 'Content-Type': 'application/json' },
+      }).then(res => {
+        if (res.status === 200) {
+          setInputsEstados(true);
+        }
+      })
+    } catch(e) {
+        console.log('NO FUNCIONA EL UPDATE')
+      }
 };
 
 return (
