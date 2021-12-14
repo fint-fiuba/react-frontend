@@ -1,32 +1,32 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
-import "../css/UserCard.css";
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import '../css/UserCard.css';
 import axios from 'axios';
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
 
 const UserCard = () => {
   const [inputsEstados, setInputsEstados] = useState(true);
   const [errorMsg, setErrorMsg] = useState('')
 
   const [user, setuser] = useState({
-    userFirstName: "",
-    userLastName: "",
-    email: "",
-    petName: "",
-    animalType: "",
-    petGender: "",
-    file: "",
-    petAge: 0,
+    firstName: '',
+    lastName: '',
+    petName: '',
+    petCategory: '',
+    petSex: '',
+    image: '',
+    petAge: '',
   });
 
+  const [userCopy, setUserCopy] = useState(user);
+
   const {
-    userFirstName,
-    userLastName,
-    email,
+    firstName,
+    lastName,
     petName,
-    petGender,
-    animalType,
+    petSex,
+    petCategory,
     petAge,
-    file,
+    image,
   } = user;
 
   useEffect(() => {
@@ -42,6 +42,8 @@ const UserCard = () => {
       }).then(res => {
         if (res.status === 200) {
           setuser(res.data);
+          setUserCopy(res.data);
+          console.log(res.data.image)
         } else {
           console.log('entro');
         }
@@ -52,15 +54,15 @@ const UserCard = () => {
   }, []);
 
 const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-  setuser({
-    ...user,
+  setUserCopy({
+    ...userCopy,
     [event.target.name]: event.target.value,
   });
 };
 
 const handleCancel = () => {
   setInputsEstados(true);
-  setuser(user);
+  setUserCopy(user);
 };
 
 const handleEdit = () => {
@@ -70,151 +72,132 @@ const handleEdit = () => {
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if (!userFirstName ||
-    !userLastName ||
-    !email ||
+  if (!firstName ||
+    !lastName ||
     !petName ||
-    !animalType ||
-    !petGender ||
+    !petCategory ||
+    !petSex ||
     !petAge ||
-    !file
+    !image
     ) return setErrorMsg('Campo Obligatorio')
-  console.log("Falta: \n -> Guardarlo usando endpoint");
+  console.log('Falta: \n -> Guardarlo usando endpoint');
 };
 
 return (
   <>
-    <div className="card user_card shadow-lg p-3 mb-5 bg-white">
-      <div className="card-body user_card_body">
-        <h5 className="user_card_title">User</h5>
+    <div className='card user_card shadow-lg p-3 mb-5 bg-white'>
+      <div className='card-body user_card_body'>
+        <h5 className='user_card_title'>User</h5>
         <form
-          className="needs-validation user_card_form"
+          className='needs-validation user_card_form'
           noValidate
           onSubmit={handleSubmit}
         >
-          <div className="form-group row mb-2">
+          <div className='form-group row mb-2'>
             <label
-              htmlFor="userFirstName"
-              className="col-sm-4 col-form-label"
+              htmlFor='firstName'
+              className='col-sm-4 col-form-label'
             >
-              First Name
+              Nombre
             </label>
-            <div className="col-sm-8 user_card_input">
+            <div className='col-sm-8 user_card_input'>
               <input
-                type="text"
+                type='text'
                 disabled={inputsEstados}
-                className="form-control required"
-                id="userFirstName"
-                name="userFirstName"
-                value={userFirstName}
+                className='form-control required'
+                id='firstName'
+                name='firstName'
+                value={userCopy.firstName}
                 onChange={handleInputChange}
                 required={true}
               />
             </div>
           </div>
 
-          <div className="form-group row mb-2">
-            <label htmlFor="userLastName" className="col-sm-4 col-form-label">
-              Last Name
+          <div className='form-group row mb-2'>
+            <label htmlFor='lastName' className='col-sm-4 col-form-label'>
+              Apellido
             </label>
-            <div className="col-sm-8">
+            <div className='col-sm-8'>
               <input
-                type="text"
+                type='text'
                 disabled={inputsEstados}
-                className="form-control required"
-                id="userLastName"
-                name="userLastName"
-                value={userLastName}
+                className='form-control required'
+                id='lastName'
+                name='lastName'
+                value={userCopy.lastName}
                 onChange={handleInputChange}
                 required={true}
               />
             </div>
           </div>
 
-          <div className="form-group row mb-2">
-            <label htmlFor="email" className="col-sm-4 col-form-label">
-              Email
+          <div className='form-group row mb-2'>
+            <label htmlFor='petName' className='col-sm-4 col-form-label'>
+              Nombre Mascota
             </label>
-            <div className="col-sm-8">
+            <div className='col-sm-8'>
               <input
-                type="text"
+                type='text'
                 disabled={inputsEstados}
-                className="form-control required"
-                id="email"
-                name="email"
-                value={email}
+                className='form-control required'
+                id='petName'
+                name='petName'
+                value={userCopy.petName}
                 onChange={handleInputChange}
                 required={true}
               />
             </div>
           </div>
 
-          <div className="form-group row mb-2">
-            <label htmlFor="petName" className="col-sm-4 col-form-label">
-              Pet Name
+          <div className='form-group row mb-2'>
+            <label htmlFor='petCategory' className='col-sm-4 col-form-label'>
+              Sexo Mascota
             </label>
-            <div className="col-sm-8">
+            <div className='col-sm-8'>
               <input
-                type="text"
+                type='text'
                 disabled={inputsEstados}
-                className="form-control required"
-                id="petName"
-                name="petName"
-                value={petName}
+                className='form-control required'
+                id='petCategory'
+                name='petCategory'
+                value={userCopy.petSex}
                 onChange={handleInputChange}
                 required={true}
               />
             </div>
           </div>
 
-          <div className="form-group row mb-2">
-            <label htmlFor="animalType" className="col-sm-4 col-form-label">
-              Pet Gender
+          <div className='form-group row mb-2'>
+            <label htmlFor='petSex' className='col-sm-4 col-form-label'>
+              Especie Mascota
             </label>
-            <div className="col-sm-8">
+            <div className='col-sm-8'>
               <input
-                type="text"
+                type='text'
                 disabled={inputsEstados}
-                className="form-control required"
-                id="animalType"
-                name="animalType"
-                value={animalType}
+                className='form-control required'
+                id='petSex'
+                name='petSex'
+                value={userCopy.petCategory}
                 onChange={handleInputChange}
                 required={true}
               />
             </div>
           </div>
 
-          <div className="form-group row mb-2">
-            <label htmlFor="petGender" className="col-sm-4 col-form-label">
-              Pet Type
-            </label>
-            <div className="col-sm-8">
-              <input
-                type="text"
-                disabled={inputsEstados}
-                className="form-control required"
-                id="petGender"
-                name="petGender"
-                value={petGender}
-                onChange={handleInputChange}
-                required={true}
-              />
-            </div>
-          </div>
-
-          <div className="form-group row mb-2">
-            <label htmlFor="petAge" className="col-sm-4 col-form-label">
+          <div className='form-group row mb-2'>
+            <label htmlFor='petAge' className='col-sm-4 col-form-label'>
               Edad Mascota
             </label>
-            <div className="col-sm-8">
+            <div className='col-sm-8'>
               <input
-                type="number"
+                type='number'
                 disabled={inputsEstados}
-                className="form-control required"
-                id="petAge"
-                name="petAge"
-                value={petAge}
+                className='form-control required'
+                id='petAge'
+                name='petAge'
+                value={userCopy.petAge}
                 onChange={handleInputChange}
                 required={true}
               />
@@ -223,35 +206,35 @@ return (
 
           {!inputsEstados && (
             <>
-              <div className="form-group row mb-2">
-                <label htmlFor="formFile" className="col-sm-4 col-form-label">
+              <div className='form-group row mb-2'>
+                <label htmlFor='formFile' className='col-sm-4 col-form-label'>
                   Image
                 </label>
-                <div className="col-sm-8">
+                <div className='col-sm-8'>
                   <input
                     disabled={inputsEstados}
-                    className="form-control required"
-                    type="file"
-                    id="formFile"
-                    name="formFile"
+                    className='form-control required'
+                    type='file'
+                    id='formFile'
+                    name='formFile'
                   />
                 </div>
               </div>
 
-              <div className="form-group row ">
+              <div className='form-group row '>
                 <label
-                  htmlFor="petImage"
-                  className="col-sm-4 col-form-label"
+                  htmlFor='petImage'
+                  className='col-sm-4 col-form-label'
                 ></label>
-                <img alt="petImage" src={file} className="pet_image" />
+                <img alt='petImage' src={userCopy.image} className='pet_image' />
               </div>
             </>
           )}
-          <div className="d-flex justify-content-end pt-5 user_card_buttons">
+          <div className='d-flex justify-content-end pt-5 user_card_buttons'>
             {inputsEstados ? (
               <button
-                type="button"
-                className="btn btn-primary "
+                type='button'
+                className='btn btn-primary '
                 onClick={handleEdit}
               >
                 Editar
@@ -259,15 +242,15 @@ return (
             ) : (
               <>
                 <button
-                  type="button"
-                  className="btn btn-danger user_card_btn_cancel"
+                  type='button'
+                  className='btn btn-danger user_card_btn_cancel'
                   onClick={handleCancel}
                 >
                   Cancelar
                 </button>
                 <button
-                  type="submit"
-                  className="btn btn-success user_card_btn_save"
+                  type='submit'
+                  className='btn btn-success user_card_btn_save'
                 >
                   Guardar
                 </button>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import imageToBase64 from 'image-to-base64';
 
 const MIN_PASS = 6
 
@@ -173,7 +174,14 @@ return (
                 <input
                     type='file'
                     className='form-control mt-4 w-100'
-                    onChange={(e) => updateState(e.target.value, setFile)}
+                    onChange={async (e) => {
+                        try {
+                            const image = await imageToBase64(e.target.value);
+                            updateState(image, setFile)
+                        } catch(e) {
+                            console.log('Error al transformar la img')
+                        }
+                    }}
                 />
                 {
                     errorMsg === 'Campo Obligatorio' && !file ?
