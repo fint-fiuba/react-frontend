@@ -10,5 +10,5 @@ export interface getAnimales {
 }
 
 export interface getAnimal {
-    message : Animal
+    animal : Animal
 }
