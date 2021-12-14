@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Animal, getAnimales, getAnimal } from "../interfaces/animales";
 import NavBar from "./NavBar";
 import "../css/UserMatches.css";
-import user from "../data/getUser";
 
 const UserMatches = () => {
   const [userAnimal, setUserAnimal] = useState<getAnimal>({
