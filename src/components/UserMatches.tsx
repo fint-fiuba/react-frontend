@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import axios from 'axios';
 import '../css/UserMatches.css';
 import Cookies from 'universal-cookie';
+import animales from '../data/getAnimals';
 
 const UserMatches = () => {
   const [errorMsg, setErrorMsg] = useState('No tiene ningún match aún')
@@ -15,13 +16,19 @@ const UserMatches = () => {
     petSex: '',
   });
 
-  const [matches, setMatches] = useState<getAnimales>({
-    message: [],
-  });
+  const [matches, setMatches] = useState<Array<Animal>>(
+    []
+  );
 
   useEffect(() => {
     try {
-      axios.get('http://localhost:3001/user')
+      const cookie = new Cookies();
+
+      axios.get("http://localhost:3001/user", {
+        params: {
+          mail: cookie.get('mail'),
+        },
+      })
       .then(res => {
         if (res.status === 200) {
           setUserAnimal({
@@ -53,7 +60,7 @@ const UserMatches = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          setMatches(res.data.mutualmatches);
+          setMatches(res.data);
         } else {
           console.log('Error al obtener matches')
         }
@@ -80,11 +87,11 @@ const UserMatches = () => {
 
         </div>
         <div className='container-flex p-2'>
-          {matches.message.length > 0 
+          {( matches && matches.length > 0) 
           ?
-          matches.message.map((animal: Animal) => {
+          matches.map((animal: Animal , index:number) => {
             return (
-                <div className='card col-sm-3 match_pet_card shadow mb-5'>
+                <div className='card col-sm-3 match_pet_card shadow mb-5' key={index}>
                   <img
                     className='match_pet_img'
                     src={animal.image}

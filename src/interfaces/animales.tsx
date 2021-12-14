@@ -6,7 +6,7 @@ export interface Animal{
 }
 
 export interface getAnimales {
-    message : Animal[]
+    animales : Animal[]
 }
 
 export interface getAnimal {

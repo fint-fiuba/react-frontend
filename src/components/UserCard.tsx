@@ -46,10 +46,7 @@ const UserCard = () => {
         if (res.status === 200) {
           setuser(res.data);
           setUserCopy(res.data);
-          console.log(res.data.image);
-        } else {
-          console.log("entro");
-        }
+        } 
       });
     } catch (e) {
       console.log("Error al requerir user information");
@@ -82,7 +79,6 @@ const UserCard = () => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let files = event.target.files;
     let reader = new FileReader();
-    console.log(files);
     if(files){
         reader.readAsDataURL(files[0]);
         reader.onload = (e) => {
@@ -102,7 +98,6 @@ const UserCard = () => {
 
   const handleEdit = () => {
     setInputsEstados(false);
-    console.log("FALTA IMPRIMIR ERRORES");
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -134,7 +129,7 @@ const UserCard = () => {
         }
       });
     } catch (e) {
-      console.log("NO FUNCIONA EL UPDATE");
+      console.log("Error al hacer el update");
     }
   };
 

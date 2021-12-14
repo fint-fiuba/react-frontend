@@ -16,8 +16,10 @@ const MatchList = () => {
     petCategory: "",
   });
 
-  const [currentIndex, setCurrentIndex] = useState(2 - 1);
-// eslint-disable-next-line
+  const idxInit = 3;
+
+  const [currentIndex, setCurrentIndex] = useState(idxInit);
+
   const [currentRef, setcurrentRef] = useState(useRef(1));
 
 
@@ -52,7 +54,7 @@ const MatchList = () => {
       axios
         .get("http://localhost:3001/user/nextmatch", {
           params: {
-            mail: "namigo@fi.uba.ar",
+            mail: "ayuda@fi.uba.ar",
           },
         })
         .then((res) =>
@@ -73,7 +75,7 @@ const MatchList = () => {
 
   const childRefs: Array<any> = useMemo(
     () =>
-      Array(10)
+      Array(idxInit)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -84,7 +86,7 @@ const MatchList = () => {
     currentIndexRef.current = val;
   };
 
-  const canSwipe = currentIndex >= 0;
+  const canSwipe = currentIndex >= 0 && currentIndex < 3;
 
   const swiped = (dir: string, idx: number) => {
     updateCurrentIndex(idx - 1);
@@ -102,9 +104,10 @@ const MatchList = () => {
   };
 
   const swipe = async (dir: string) => {
-    if (canSwipe && currentIndex < 2) {
-      await childRefs[currentIndex].current.swipe(dir);
-    }
+    console.log(currentIndex);
+    //if (canSwipe) {
+      await childRefs[1].current.swipe(dir);
+    //}
   };
 
   return (
