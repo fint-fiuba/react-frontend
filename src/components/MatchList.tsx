@@ -15,7 +15,7 @@ const MatchList = () => {
   
 
   useEffect(() => {
-    fetch("http://localhost:6060/animales")
+    fetch("http://localhost:3001/usermatches")
       .then((res) => res.json())
       .then(setMatches);
   }, []);
@@ -77,7 +77,10 @@ const MatchList = () => {
         ))}
       </div>
 
-      <MatchButtons swipe={swipe} />
+      <MatchButtons 
+        swipe={swipe} 
+        otherMail={matches.message[0].mail}
+      />
     </>
   );
 };
