@@ -8,7 +8,7 @@ type CardProps = {
     animal: Animal,
     functions: Function[],
     index: number,
-    currRef: Any
+    currRef: any
 }
 
 const MatchCard = ({ animal , functions, index, currRef}: CardProps) => {

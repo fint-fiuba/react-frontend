@@ -10,8 +10,8 @@ const UserMatches = () => {
     name: 'No hay animal',
     image:
       'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
-    petType: '',
-    petGender: '',
+    petCategory: '',
+    petSex: '',
   });
 
   const [matches, setMatches] = useState<getAnimales>({
@@ -26,8 +26,8 @@ const UserMatches = () => {
           setUserAnimal({
             name: res.data.firstName,
             image: res.data.image,
-            petType: res.data.petType,
-            petGender: res.data.petGender
+            petCategory: res.data.petCategory,
+            petSex: res.data.petSex
           });
         } else {
           console.log('Error al obtener foto del usuario')
@@ -88,8 +88,8 @@ const UserMatches = () => {
                     </p>
                   </div>
                   <ul className='list-group list-group-flush'>
-                    <li className='list-group-item'>{animal.petType}</li>
-                    <li className='list-group-item'>{animal.petGender}</li>
+                    <li className='list-group-item'>{animal.petCategory}</li>
+                    <li className='list-group-item'>{animal.petSex}</li>
                   </ul>
                 </div>
             );

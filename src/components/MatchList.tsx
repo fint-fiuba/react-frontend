@@ -16,7 +16,7 @@ const MatchList = () => {
   });
 
   const [currentIndex, setCurrentIndex] = useState(2 - 1);
-
+// eslint-disable-next-line
   const [currentRef, setcurrentRef] = useState(useRef(1));
 
 
