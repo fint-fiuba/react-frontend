@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import "../css/MatchList.css";
 import { Animal } from "../interfaces/animales";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 const MatchList = () => {
   
@@ -24,19 +25,22 @@ const MatchList = () => {
 
   const nextMatch1 = () => {
     try {
+      const cookie = new Cookies();
       axios
         .get("http://localhost:3001/user/nextmatch", {
           params: {
-            mail: "tdelpup@fi.uba.ar",
+            mail: cookie.get('mail'),
           },
         })
-        .then((res) =>
+        .then((res) => {
+          console.log(res)
           setMatches({
             image: res.data.image,
             name: res.data.petName,
             petSex: res.data.petSex,
             petCategory: res.data.petCategory,
           })
+        }
         );
     } catch (error) {
       console.log("error al traer nextmatch");

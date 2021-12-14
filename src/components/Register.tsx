@@ -160,27 +160,27 @@ return (
                     className='form-select mt-4 w-100'
                     onChange={(e) => updateState(e.target.value, setAnimalType)}
                 >
-                    <option value='Perro'>Perro</option>
-                    <option value='Gato'>Gato</option>
+                    <option value='DOG'>DOG</option>
+                    <option value='CAT'>CAT</option>
                 </select>
                 <select
                     form='register'
                     className='form-select mt-4 w-100'
                     onChange={(e) => updateState(e.target.value, setPetGender)}
                 >
-                    <option value='Macho'>Macho</option>
-                    <option value='Hembra'>Hembra</option>
+                    <option value='MALE'>MALE</option>
+                    <option value='FEMALE'>FEMALE</option>
                 </select>
                 <input
                     type='file'
                     className='form-control mt-4 w-100'
-                    onChange={async (e) => {
-                        try {
-                            const image = await imageToBase64(e.target.value);
-                            updateState(image, setFile)
-                        } catch(e) {
-                            console.log('Error al transformar la img')
-                        }
+                    onChange={(e) => {
+                        //try {
+                        //    const image = await imageToBase64(e.target.value);
+                            updateState(e.target.value, setFile)
+                        //} catch(e) {
+                        //    console.log('Error al transformar la img')
+                        //}
                     }}
                 />
                 {

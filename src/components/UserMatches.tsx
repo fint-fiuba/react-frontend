@@ -3,6 +3,7 @@ import { Animal, getAnimales } from '../interfaces/animales';
 import NavBar from './NavBar';
 import axios from 'axios';
 import '../css/UserMatches.css';
+import Cookies from 'universal-cookie';
 
 const UserMatches = () => {
   const [errorMsg, setErrorMsg] = useState('No tiene ningún match aún')
@@ -41,7 +42,15 @@ const UserMatches = () => {
 
   useEffect(() => {
     try {
-      axios.get('http://localhost:3001/mutualmatches')
+      const cookie = new Cookies();
+      axios({
+        method: 'get',
+        params: {
+          mail: cookie.get('mail'),
+        },
+        url: 'http://localhost:3001/user/mutualmatches',
+        headers: { 'Content-Type': 'application/json' },
+      })
       .then(res => {
         if (res.status === 200) {
           setMatches(res.data.mutualmatches);
@@ -56,7 +65,7 @@ const UserMatches = () => {
   }, []);
 
   return (
-    <>
+    <Fragment>
       <NavBar></NavBar>
       <div className='container'>
         <div className='col pet-photo-container mt-4'>
@@ -106,7 +115,7 @@ const UserMatches = () => {
           }
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };
 
