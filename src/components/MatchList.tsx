@@ -17,7 +17,7 @@ const MatchList = () => {
 
   const [currentIndex, setCurrentIndex] = useState(2 - 1);
 
-  const [currentRef, setcurrentRef] = useState( [ useRef(1)  , useRef(2) ]);
+  const [currentRef, setcurrentRef] = useState(useRef(1));
 
 
   useEffect(() => nextMatch1() , []);
@@ -39,12 +39,7 @@ const MatchList = () => {
           })
         );
     } catch (error) {
-      setMatches({
-        image: "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg",
-        name: "",
-        petSex: "",
-        petCategory: "",
-      })
+      console.log("error al traer nextmatch");
     }
   };
 
@@ -74,7 +69,7 @@ const MatchList = () => {
 
   const childRefs: Array<any> = useMemo(
     () =>
-      Array(2)
+      Array(10)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -95,11 +90,11 @@ const MatchList = () => {
     if (dir === "right") {
       console.log("se fue aceptado");
     }
+    nextMatch2();
   };
 
   const outOfFrame = (idx: number) => {
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
-    nextMatch2();
   };
 
   const swipe = async (dir: string) => {
@@ -118,15 +113,12 @@ const MatchList = () => {
             animal={matches}
             index={1}
             functions={[swiped, outOfFrame]}
-            currRef={currentRef}
+            currRef={childRefs[currentIndex]}
           />
         }
       </div>
 
-      <MatchButtons 
-        swipe={swipe} 
-        otherMail={matches.message[0].mail}
-      />
+      <MatchButtons swipe={swipe} />
     </>
   );
 };
