@@ -1,12 +1,10 @@
 import axios from "axios";
 import React, { FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie';
-
+import Cookies from "universal-cookie";
 
 const Login = () => {
-
-  axios.defaults.withCredentials = true
+  axios.defaults.withCredentials = true;
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -16,38 +14,32 @@ const Login = () => {
     func(value);
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
-	e.preventDefault();
+    if (!email.trim() || !pass.trim()) return setErrorMsg("Campo Obligatorio");
 
-  if (!email.trim() || !pass.trim()) return setErrorMsg("Campo Obligatorio");
-
-
-	const objectData = {
-		mail: email,
-		password: pass
-	}
+    const objectData = {
+      mail: email,
+      password: pass,
+    };
 
     try {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:3001/auth/login",
+        data: objectData,
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
 
-      axios.post(
-        'http://localhost:3001/auth/login',
-        objectData,
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      )
-      .then( res => {
-        if(res.status === 200){
-          const cookies = new Cookies();
-          cookies.set('mail', res.data.mail);
-          navigate("/match");
-        }else{
-          console.log("error al loguear")
-        }
-      })
-
+      if (response.status === 200) {
+        const cookies = new Cookies();
+        cookies.set("mail", response.data.mail);
+        navigate("/match");
+      } else {
+        console.log("entro");
+      }
     } catch (error) {
       setErrorMsg("Error al loguear");
     }

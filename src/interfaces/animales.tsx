@@ -1,8 +1,8 @@
 export interface Animal{
     name: string,
     image: string,
-    petType: string,
-    petGender: string
+    petSex: string,
+    petCategory: string
 }
 
 export interface getAnimales {

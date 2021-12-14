@@ -8,7 +8,7 @@ type ButtonProps = {
     swipe: Function
 }
 
-export const MatchButtons = ( {swipe} : ButtonProps, otherMail : String ) => {
+export const MatchButtons = ({ swipe }: ButtonProps, otherMail: String) => {
     const swipeLeft = () => {
         swipe('left');
         const cookie = new Cookies();
@@ -21,12 +21,12 @@ export const MatchButtons = ( {swipe} : ButtonProps, otherMail : String ) => {
         try {
 
             axios.post(
-              'http://localhost:3001/user/reject',
-              objectData,
-              {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-              }
+                'http://localhost:3001/user/reject',
+                objectData,
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
             )
         } catch (error) {
             console.log('Error al rejectar');
@@ -45,12 +45,12 @@ export const MatchButtons = ( {swipe} : ButtonProps, otherMail : String ) => {
         try {
 
             axios.post(
-              'http://localhost:3001/user/reject',
-              objectData,
-              {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-              }
+                'http://localhost:3001/user/reject',
+                objectData,
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
             )
         } catch (error) {
             console.log('Error al aceptar');
