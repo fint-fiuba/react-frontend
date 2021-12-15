@@ -8,124 +8,137 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 const MatchList = () => {
-  
-  const [matches, setMatches] = useState<Animal>({
+  const [matches, setMatches] = useState<Animal[]>([{
     name: "",
     image: "",
     petSex: "",
     petCategory: "",
-  });
+  }]);
 
-  const idxInit = 3;
+  const [currentMail, setcurrentMail] = useState("")
 
-  const [currentIndex, setCurrentIndex] = useState(idxInit);
+  const idxInit = 2;
 
-  const [currentRef, setcurrentRef] = useState(useRef(1));
+  const [currentIndex, setCurrentIndex] = useState(1);
 
 
-  useEffect(() => nextMatch1() , []);
-
-  const nextMatch1 = () => {
+  const nextMatch = () => {
     try {
+      console.log("next match 1");
       const cookie = new Cookies();
       axios
         .get("http://localhost:3001/user/nextmatch", {
           params: {
-            mail: cookie.get('mail'),
+            mail: cookie.get("mail"),
           },
         })
         .then((res) => {
-          console.log(res)
-          setMatches({
-            image: res.data.image,
-            name: res.data.petName,
-            petSex: res.data.petSex,
-            petCategory: res.data.petCategory,
-          })
-        }
-        );
+          if(res.data){
+            setMatches([{
+              image: res.data.image,
+              name: res.data.petName,
+              petSex: res.data.petSex,
+              petCategory: res.data.petCategory,
+            }]);
+            setcurrentMail(res.data.mail);
+          }else{
+            setMatches([{
+              image: "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg",
+              name: "No hay mas animales disponibles",
+              petSex: "",
+              petCategory: "",
+            }]);
+          }
+        });
     } catch (error) {
       console.log("error al traer nextmatch");
     }
   };
 
-  const nextMatch2 = () => {
+  useEffect(() => nextMatch(), []);
+
+  const reject = () => {
     try {
-      axios
-        .get("http://localhost:3001/user/nextmatch", {
-          params: {
-            mail: "ayuda@fi.uba.ar",
-          },
-        })
-        .then((res) =>
-          setMatches({
-            image: res.data.image,
-            name: res.data.petName,
-            petSex: res.data.petSex,
-            petCategory: res.data.petCategory,
-          })
-        );
-    } catch (error) {
-      console.log("error al traer nextmatch");
+      const cookie = new Cookies();
+      axios({
+        method: "post",
+        data: {
+          mail: cookie.get("mail"),
+          otherMail: currentMail
+        },
+        url: "http://localhost:3001/user/reject",
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (e) {
+      console.log("Error al hacer el reject");
     }
-  };
+  }
 
-
-  const currentIndexRef = useRef(currentIndex);
+  const accept = () => {
+    try {
+      const cookie = new Cookies();
+      axios({
+        method: "post",
+        data: {
+          mail: cookie.get("mail"),
+          otherMail: currentMail
+        },
+        url: "http://localhost:3001/user/match",
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (e) {
+      console.log("Error al hacer el accept");
+    }
+  }
 
   const childRefs: Array<any> = useMemo(
-    () =>
+    () => (
       Array(idxInit)
         .fill(0)
-        .map((i) => React.createRef()),
-    []
-  );
+        .map((i) => React.createRef())
+  ),[]);
 
-  const updateCurrentIndex = (val: number) => {
-    setCurrentIndex(val);
-    currentIndexRef.current = val;
-  };
-
-  const canSwipe = currentIndex >= 0 && currentIndex < 3;
 
   const swiped = (dir: string, idx: number) => {
-    updateCurrentIndex(idx - 1);
-    if (dir === "left") {
-      console.log("se fue rechazado");
+    if (dir === "left" && matches[0].petCategory !== "") {
+      reject();
     }
-    if (dir === "right") {
-      console.log("se fue aceptado");
+    if (dir === "right" && matches[0].petCategory !== "") {
+      accept();
     }
-    nextMatch2();
   };
 
   const outOfFrame = (idx: number) => {
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+    if(matches[0].petCategory === ""){
+      childRefs[currentIndex].current.restoreCard();
+    }
+    nextMatch();
   };
 
-  const swipe = async (dir: string) => {
-    console.log(currentIndex);
-    //if (canSwipe) {
-      await childRefs[1].current.swipe(dir);
-    //}
+  const swipee = async (dir: string) => {
+    await childRefs[currentIndex]?.current?.swipe(dir);
   };
 
   return (
     <>
       <NavBar></NavBar>
       <div className="match_cards">
-        {
+
+        { matches.map( (match, index) => {
+          return (          
           <MatchCard
-            key={matches.name}
-            animal={matches}
-            index={1}
+            key={index}
+            animal={match}
+            index={index}
             functions={[swiped, outOfFrame]}
             currRef={childRefs[currentIndex]}
-          />
+          />)
+        })
+
         }
       </div>
 
-      <MatchButtons swipe={swipe} />
+      <MatchButtons swipee={swipee} />
     </>
   );
 };

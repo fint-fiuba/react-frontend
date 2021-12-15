@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import imageToBase64 from "image-to-base64";
 
 const MIN_PASS = 6;
 

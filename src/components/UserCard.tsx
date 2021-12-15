@@ -4,18 +4,20 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 type userProps = {
-  firstName: string,
-  lastName: string,
-  petName: string,
-  petCategory: string,
-  petSex: string,
-  image: string | ArrayBuffer | null | undefined,
-  petAge: string,
-}
+  firstName: string;
+  lastName: string;
+  petName: string;
+  petCategory: string;
+  petSex: string;
+  image: string | ArrayBuffer | null | undefined;
+  petAge: string;
+};
 
 const UserCard = () => {
   const [inputsEstados, setInputsEstados] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+
+  console.log(errorMsg);
 
   const [user, setuser] = useState<userProps>({
     firstName: "",
@@ -46,7 +48,7 @@ const UserCard = () => {
         if (res.status === 200) {
           setuser(res.data);
           setUserCopy(res.data);
-        } 
+        }
       });
     } catch (e) {
       console.log("Error al requerir user information");
@@ -61,34 +63,33 @@ const UserCard = () => {
   };
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    if(event.target.name === "petCategory"){
+    if (event.target.name === "petCategory") {
       setUserCopy({
         ...userCopy,
         petCategory: event.target.value,
       });
     }
 
-    if(event.target.name === "petSex"){
+    if (event.target.name === "petSex") {
       setUserCopy({
         ...userCopy,
         petSex: event.target.value,
       });
     }
-  }
+  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let files = event.target.files;
     let reader = new FileReader();
-    if(files){
-        reader.readAsDataURL(files[0]);
-        reader.onload = (e) => {
-          setUserCopy({
-            ...userCopy,
-            image: e.target?.result,
-          });
-        };
+    if (files) {
+      reader.readAsDataURL(files[0]);
+      reader.onload = (e) => {
+        setUserCopy({
+          ...userCopy,
+          image: e.target?.result,
+        });
+      };
     }
-
   };
 
   const handleCancel = () => {
@@ -111,7 +112,7 @@ const UserCard = () => {
       !petAge ||
       !image
     )
-      return setErrorMsg("Campo Obligatorio");
+    setErrorMsg("Campo Obligatorio");
 
     try {
       const cookie = new Cookies();

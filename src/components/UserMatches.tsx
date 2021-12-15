@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Animal, getAnimales } from '../interfaces/animales';
+import { Animal } from '../interfaces/animales';
 import NavBar from './NavBar';
 import axios from 'axios';
 import '../css/UserMatches.css';
 import Cookies from 'universal-cookie';
-import animales from '../data/getAnimals';
 
 const UserMatches = () => {
   const [errorMsg, setErrorMsg] = useState('No tiene ningún match aún')

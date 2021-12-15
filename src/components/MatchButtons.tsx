@@ -1,21 +1,19 @@
 import React from 'react';
 import '../css/MatchButtons.css';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
 
 
 type ButtonProps = {
-    swipe: Function,
+    swipee: Function,
 }
 
-export const MatchButtons = ({ swipe }: ButtonProps) => {
+export const MatchButtons = ({ swipee }: ButtonProps) => {
 
     return (
         <div className='match_buttons'>
-            <div className='match_button_cross' onClick={() => swipe('left')} >
+            <div className='match_button_cross' onClick={() => swipee('left')} >
                 <i className='bi bi-x-circle-fill bi-lg'></i>
             </div>
-            <div className='match_button_check' onClick={() => swipe('right')}>
+            <div className='match_button_check' onClick={() => swipee('right')}>
                 <i className='bi bi-check-circle-fill bi-lg'></i>
             </div>
         </div>

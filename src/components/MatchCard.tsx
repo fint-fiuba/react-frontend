@@ -14,7 +14,7 @@ type CardProps = {
 const MatchCard = ({ animal , functions, index, currRef}: CardProps) => {
 
     const [swiped, outOfFrame] = functions;
-
+    console.log(currRef);
 
     return (
         <TinderCard
