@@ -2,7 +2,8 @@ export interface Animal{
     name: string,
     image: string,
     petSex: string,
-    petCategory: string
+    petCategory: string,
+    petAge: string
 }
 
 export interface getAnimales {
