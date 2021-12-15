@@ -22,6 +22,8 @@ const MatchList = () => {
 
   const [currentRef, setcurrentRef] = useState(useRef(1));
 
+  const [currentEmail, setCurrentEmail] = useState('');
+
 
   useEffect(() => nextMatch1() , []);
 
@@ -41,6 +43,7 @@ const MatchList = () => {
             petSex: res.data.petSex,
             petCategory: res.data.petCategory,
           })
+          setCurrentEmail(res.data.mail)
         }
         );
     } catch (error) {
@@ -57,13 +60,15 @@ const MatchList = () => {
             mail: cookie.get('mail'),
           },
         })
-        .then((res) =>
+        .then((res) => {
           setMatches({
             image: res.data.image,
             name: res.data.petName,
             petSex: res.data.petSex,
             petCategory: res.data.petCategory,
           })
+          setCurrentEmail(res.data.mail)
+        }
         );
     } catch (error) {
       console.log('error al traer nextmatch');
@@ -96,7 +101,7 @@ const MatchList = () => {
         axios.post('http://localhost:3001/user/reject', {
             data: {
               mail: cookie.get('mail'),
-              otherMail:
+              otherMail: currentEmail
             }
           })
           .then((res) =>
@@ -118,7 +123,7 @@ const MatchList = () => {
         axios.post('http://localhost:3001/user/match', {
             data: {
               mail: cookie.get('mail'),
-              otherMail:
+              otherMail: currentEmail
             }
           })
           .then((res) =>
