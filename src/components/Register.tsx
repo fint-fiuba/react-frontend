@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import imageToBase64 from "image-to-base64";
 
 const MIN_PASS = 6;
 
@@ -178,12 +177,6 @@ const Login = () => {
             type="file"
             className="form-control mt-4 w-100"
             onChange={ handleSelectChange }
-              //try {
-              //    const image = await imageToBase64(e.target.value);
-              // updateState(e.target.value, setFile)
-              //} catch(e) {
-              //    console.log('Error al transformar la img')
-              //}
           />
         </form>
         <button

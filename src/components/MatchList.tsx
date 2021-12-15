@@ -1,19 +1,19 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
-import { MatchButtons } from "./MatchButtons";
-import MatchCard from "./MatchCard";
-import NavBar from "./NavBar";
-import "../css/MatchList.css";
-import { Animal } from "../interfaces/animales";
-import axios from "axios";
-import Cookies from "universal-cookie";
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { MatchButtons } from './MatchButtons';
+import MatchCard from './MatchCard';
+import NavBar from './NavBar';
+import '../css/MatchList.css';
+import { Animal } from '../interfaces/animales';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const MatchList = () => {
   
   const [matches, setMatches] = useState<Animal>({
-    name: "",
-    image: "",
-    petSex: "",
-    petCategory: "",
+    name: '',
+    image: '',
+    petSex: '',
+    petCategory: '',
   });
 
   const idxInit = 3;
@@ -29,13 +29,12 @@ const MatchList = () => {
     try {
       const cookie = new Cookies();
       axios
-        .get("http://localhost:3001/user/nextmatch", {
+        .get('http://localhost:3001/user/nextmatch', {
           params: {
             mail: cookie.get('mail'),
           },
         })
         .then((res) => {
-          console.log(res)
           setMatches({
             image: res.data.image,
             name: res.data.petName,
@@ -45,16 +44,17 @@ const MatchList = () => {
         }
         );
     } catch (error) {
-      console.log("error al traer nextmatch");
+      console.log('error al traer nextmatch');
     }
   };
 
   const nextMatch2 = () => {
     try {
+      const cookie = new Cookies();
       axios
-        .get("http://localhost:3001/user/nextmatch", {
+        .get('http://localhost:3001/user/nextmatch', {
           params: {
-            mail: "ayuda@fi.uba.ar",
+            mail: cookie.get('mail'),
           },
         })
         .then((res) =>
@@ -66,10 +66,9 @@ const MatchList = () => {
           })
         );
     } catch (error) {
-      console.log("error al traer nextmatch");
+      console.log('error al traer nextmatch');
     }
   };
-
 
   const currentIndexRef = useRef(currentIndex);
 
@@ -90,11 +89,49 @@ const MatchList = () => {
 
   const swiped = (dir: string, idx: number) => {
     updateCurrentIndex(idx - 1);
-    if (dir === "left") {
-      console.log("se fue rechazado");
+    if (dir === 'left') {
+      console.log('se fue rechazado');
+      try {
+        const cookie = new Cookies();
+        axios.post('http://localhost:3001/user/reject', {
+            data: {
+              mail: cookie.get('mail'),
+              otherMail:
+            }
+          })
+          .then((res) =>
+            setMatches({
+              image: res.data.image,
+              name: res.data.petName,
+              petSex: res.data.petSex,
+              petCategory: res.data.petCategory,
+            })
+          );
+      } catch (error) {
+        console.log('error al traer nextmatch');
+      }
     }
-    if (dir === "right") {
-      console.log("se fue aceptado");
+    if (dir === 'right') {
+      console.log('se fue aceptado');
+      try {
+        const cookie = new Cookies();
+        axios.post('http://localhost:3001/user/match', {
+            data: {
+              mail: cookie.get('mail'),
+              otherMail:
+            }
+          })
+          .then((res) =>
+            setMatches({
+              image: res.data.image,
+              name: res.data.petName,
+              petSex: res.data.petSex,
+              petCategory: res.data.petCategory,
+            })
+          );
+      } catch (error) {
+        console.log('error al traer nextmatch');
+      }
     }
     nextMatch2();
   };
@@ -113,7 +150,7 @@ const MatchList = () => {
   return (
     <>
       <NavBar></NavBar>
-      <div className="match_cards">
+      <div className='match_cards'>
         {
           <MatchCard
             key={matches.name}
