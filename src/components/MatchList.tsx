@@ -1,11 +1,11 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
-import { MatchButtons } from "./MatchButtons";
-import MatchCard from "./MatchCard";
-import NavBar from "./NavBar";
-import "../css/MatchList.css";
-import { Animal } from "../interfaces/animales";
-import axios from "axios";
-import Cookies from "universal-cookie";
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { MatchButtons } from './MatchButtons';
+import MatchCard from './MatchCard';
+import NavBar from './NavBar';
+import '../css/MatchList.css';
+import { Animal } from '../interfaces/animales';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const MatchList = () => {
   const [matches, setMatches] = useState<Animal[]>([{
@@ -13,6 +13,7 @@ const MatchList = () => {
     image: "",
     petSex: "",
     petCategory: "",
+    petAge: ""
   }]);
 
   const [currentMail, setcurrentMail] = useState("")
@@ -21,13 +22,15 @@ const MatchList = () => {
 
   const [currentIndex, setCurrentIndex] = useState(1);
 
+  const [currentEmail, setCurrentEmail] = useState('');
+
 
   const nextMatch = () => {
     try {
       console.log("next match 1");
       const cookie = new Cookies();
       axios
-        .get("http://localhost:3001/user/nextmatch", {
+        .get('http://localhost:3001/user/nextmatch', {
           params: {
             mail: cookie.get("mail"),
           },
@@ -39,6 +42,7 @@ const MatchList = () => {
               name: res.data.petName,
               petSex: res.data.petSex,
               petCategory: res.data.petCategory,
+              petAge: res.data.petAge
             }]);
             setcurrentMail(res.data.mail);
           }else{
@@ -47,11 +51,12 @@ const MatchList = () => {
               name: "No hay mas animales disponibles",
               petSex: "",
               petCategory: "",
+              petAge: ""
             }]);
           }
         });
     } catch (error) {
-      console.log("error al traer nextmatch");
+      console.log('error al traer nextmatch');
     }
   };
 

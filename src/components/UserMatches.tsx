@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import axios from 'axios';
 import '../css/UserMatches.css';
 import Cookies from 'universal-cookie';
+import { User } from '../interfaces/user';
 
 const UserMatches = () => {
   const [errorMsg, setErrorMsg] = useState('No tiene ningún match aún')
@@ -13,9 +14,10 @@ const UserMatches = () => {
       'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
     petCategory: '',
     petSex: '',
+    petAge: ''
   });
 
-  const [matches, setMatches] = useState<Array<Animal>>(
+  const [matches, setMatches] = useState<Array<User>>(
     []
   );
 
@@ -34,7 +36,8 @@ const UserMatches = () => {
             name: res.data.firstName,
             image: res.data.image,
             petCategory: res.data.petCategory,
-            petSex: res.data.petSex
+            petSex: res.data.petSex,
+            petAge: res.data.petAge
           });
         } else {
           console.log('Error al obtener foto del usuario')
@@ -88,23 +91,22 @@ const UserMatches = () => {
         <div className='container-flex p-2'>
           {( matches && matches.length > 0) 
           ?
-          matches.map((animal: Animal , index:number) => {
+          matches.map((user: User , index:number) => {
             return (
                 <div className='card col-sm-3 match_pet_card shadow mb-5' key={index}>
                   <img
                     className='match_pet_img'
-                    src={animal.image}
+                    src={user.animal.image}
                     alt='petImage'
                   />
                   <div className='card-body'>
-                    <h5 className='card-title overflow-hidden'>{animal.name}</h5>
-                    <p className='match_card_text card-text'>
-                      Es un perro chiquito y bonito.
-                    </p>
+                    <h5 className='card-title overflow-hidden'>{user.animal.name}</h5>
+                    <p className='match_card_text card-text'>{user.mail}</p>
                   </div>
                   <ul className='list-group list-group-flush'>
-                    <li className='list-group-item'>{animal.petCategory}</li>
-                    <li className='list-group-item'>{animal.petSex}</li>
+                    <li className='list-group-item'>{user.animal.petAge}</li>
+                    <li className='list-group-item'>{user.animal.petCategory}</li>
+                    <li className='list-group-item'>{user.animal.petSex}</li>
                   </ul>
                 </div>
             );
