@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { MatchButtons } from './MatchButtons';
 import MatchCard from './MatchCard';
 import NavBar from './NavBar';
@@ -20,10 +20,7 @@ const MatchList = () => {
 
   const idxInit = 2;
 
-  const [currentIndex, setCurrentIndex] = useState(1);
-
-  const [currentEmail, setCurrentEmail] = useState('');
-
+  const [currentIndex, ] = useState(1);
 
   const nextMatch = () => {
     try {
@@ -116,8 +113,9 @@ const MatchList = () => {
   const outOfFrame = (idx: number) => {
     if(matches[0].petCategory === ""){
       childRefs[currentIndex].current.restoreCard();
+    }else{
+      nextMatch();
     }
-    nextMatch();
   };
 
   const swipee = async (dir: string) => {

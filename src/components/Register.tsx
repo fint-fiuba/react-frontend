@@ -162,16 +162,16 @@ const Login = () => {
             className='form-select mt-4 w-100'
             onChange={(e) => updateState(e.target.value, setAnimalType)}
           >
-            <option value='DOG'>DOG</option>
-            <option value='CAT'>CAT</option>
+            <option value='DOG'>PERRO</option>
+            <option value='CAT'>GATO</option>
           </select>
           <select
             form='register'
             className='form-select mt-4 w-100'
             onChange={(e) => updateState(e.target.value, setPetGender)}
           >
-            <option value='MALE'>MALE</option>
-            <option value='FEMALE'>FEMALE</option>
+            <option value='MALE'>MASCULINO</option>
+            <option value='FEMALE'>FEMENINO</option>
           </select>
           <input
             type='file'

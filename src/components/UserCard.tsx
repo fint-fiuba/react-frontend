@@ -212,14 +212,14 @@ const UserCard = () => {
                   onChange={handleSelectChange}
                 >
                   {userCopy.petSex === 'MALE' ? (
-                    <option value='MALE'>MALE</option>
+                    <option value='MALE'>MASCULINO</option>
                   ) : (
-                    <option value='MALE'>MALE</option>
+                    <option value='MALE'>MASCULINO</option>
                   )}
                   {userCopy.petSex === 'FEMALE' ? (
-                    <option value='FEMALE'>FEMALE</option>
+                    <option value='FEMALE'>FEMENINO</option>
                   ) : (
-                    <option value='FEMALE'>FEMALE</option>
+                    <option value='FEMALE'>FEMENINO</option>
                   )}
                 </select>
               </div>
@@ -239,14 +239,14 @@ const UserCard = () => {
                   onChange={handleSelectChange}
                 >
                   {userCopy.petCategory === 'DOG' ? (
-                    <option value='DOG'>DOG</option>
+                    <option value='DOG'>PERRO</option>
                   ) : (
-                    <option value='DOG'>DOG</option>
+                    <option value='DOG'>PERRO</option>
                   )}
                   {userCopy.petCategory === 'CAT' ? (
-                    <option value='CAT'>CAT</option>
+                    <option value='CAT'>GATO</option>
                   ) : (
-                    <option value='CAT'>CAT</option>
+                    <option value='CAT'>GATO</option>
                   )}
                 </select>
               </div>
